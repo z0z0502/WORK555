@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء كمبيالة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        
+        :root {
+            --primary-color: #0a3d62;
+            --secondary-color: #1e88e5;
+            --accent-color: #4fc3f7;
+            --light-color: #f5f9ff;
+            --dark-color: #0a2463;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 95%;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+            margin: 20px auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 28px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: var(--primary-color);
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+        }
+        
+        input[type="text"], 
+        input[type="date"] {
+            width: 90%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+        
+        input[type="text"]:focus, 
+        input[type="date"]:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
+            outline: none;
+        }
+        
+        button {
+            padding: 14px;
+            background: linear-gradient(to right, var(--primary-color), var(--dark-color));
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 50%;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 20px auto 0;
+            display: block;
+        }
+        
+        button:hover {
+            background: linear-gradient(to right, var(--dark-color), var(--primary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .note {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .currency-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--light-color);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .currency-group label {
+            margin: 0 15px 0 0;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .currency-options {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .currency-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            margin: 0;
+        }
+        
+        input[type="radio"] {
+            accent-color: var(--primary-color);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo span {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+            
+            button {
+                width: 80%;
+            }
+            
+            input[type="text"], 
+            input[type="date"] {
+                width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <span>منصة أورنمو القانونية</span>
+        </div>
+        <h1>إنشاء كمبيالة إلكترونية</h1>
+        <form id="receiptForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="recipientName">اسم مستلم المبلغ</label>
+                    <input type="text" name="recipientName" required placeholder="الاسم الكامل">
+                </div>
+                <div class="form-group">
+                    <label for="donorName">اسم مانح المبلغ</label>
+                    <input type="text" name="donorName" required placeholder="الاسم الكامل">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipientID">رقم هوية مستلم المبلغ</label>
+                    <input type="text" name="recipientID" required placeholder="رقم الهوية">
+                </div>
+                <div class="form-group">
+                    <label for="donorID">رقم هوية مانح المبلغ</label>
+                    <input type="text" name="donorID" required placeholder="رقم الهوية">
+                </div>
+                
+                <div class="form-group">
+                    <label for="issueDate">تاريخ إصدار الهوية</label>
+                    <input type="date" name="issueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="province">المحافظة</label>
+                    <input type="text" name="province" required placeholder="اسم المحافظة">
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">المبلغ</label>
+                    <input type="text" name="amount" id="amount" required placeholder="المبلغ بالأرقام">
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">تاريخ الاستحقاق</label>
+                    <input type="date" name="dueDate" required>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="amountInWords">المبلغ كتابةً</label>
+                    <input type="text" name="amountInWords" required placeholder="المبلغ بالحروف" style="width: 95%;">
+                </div>
+                
+                <div class="full-width">
+                    <div class="currency-group">
+                        <label>اختر العملة:</label>
+                        <div class="currency-options">
+                            <label>
+                                <input type="radio" name="currency" value="دولار أمريكي" required> دولار أمريكي
+                            </label>
+                            <label>
+                                <input type="radio" name="currency" value="دينار عراقي" required> دينار عراقي
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit">إنشاء الكمبيالة</button>
+        </form>
+        <div class="note">
+            ملاحظة: بعد إنشاء الكمبيالة، يمكنك حفظها كصورة أو طباعتها<br>
+            لتقديمها إلى الجهات المختصة عند الحاجة
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('receiptForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const currency = formData.get('currency');
+            const amount = formData.get('amount').replace(/,/g, '');
+            const formattedAmount = parseInt(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            const amountInWords = formData.get('amountInWords');
+
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>تفاصيل الكمبيالة</title>
+                        <style>
+                            @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+                            
+                            :root {
+                                --primary-color: #0a3d62;
+                                --secondary-color: #1e88e5;
+                                --accent-color: #4fc3f7;
+                                --light-color: #f5f9ff;
+                                --dark-color: #0a2463;
+                            }
+                            
+                            body {
+                                font-family: 'Tajawal', Arial, sans-serif;
+                                direction: rtl;
+                                text-align: center;
+                                padding: 10px;
+                                margin: 0;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                min-height: 100vh;
+                            }
+                            
+                            .receipt-container {
+                                max-width: 600px;
+                                width: 95%;
+                                background: white;
+                                padding: 20px;
+                                border-radius: 12px;
+                                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                                border-top: 8px solid var(--primary-color);
+                                position: relative;
+                                margin: 20px auto;
+                            }
+                            
+                            h1 {
+                                text-align: center;
+                                font-size: 24px;
+                                color: var(--primary-color);
+                                margin-bottom: 15px;
+                                position: relative;
+                                padding-bottom: 10px;
+                            }
+                            
+                            h1::after {
+                                content: '';
+                                position: absolute;
+                                bottom: 0;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 80px;
+                                height: 3px;
+                                background: var(--secondary-color);
+                                border-radius: 3px;
+                            }
+                            
+                            .info-row {
+                                display: flex;
+                                justify-content: space-between;
+                                margin: 8px 0;
+                                padding-bottom: 5px;
+                                border-bottom: 1px dashed #eee;
+                                font-size: 14px;
+                            }
+                            
+                            .info-row span:first-child {
+                                color: var(--primary-color);
+                                font-weight: 500;
+                            }
+                            
+                            .highlight {
+                                color: var(--dark-color);
+                                font-weight: 600;
+                            }
+                            
+                            .amount-row {
+                                background-color: var(--light-color);
+                                padding: 10px;
+                                border-radius: 8px;
+                                margin: 15px 0;
+                                border-left: 4px solid var(--secondary-color);
+                            }
+                            
+                            .signature-section {
+                                display: flex;
+                                justify-content: space-around;
+                                margin-top: 20px;
+                            }
+                            
+                            .signature-box {
+                                text-align: center;
+                                width: 40%;
+                                font-size: 14px;
+                            }
+                            
+                            .signature-line {
+                                width: 80%;
+                                height: 1px;
+                                background: #333;
+                                margin: 10px auto;
+                            }
+                            
+                            .note {
+                                margin-top: 15px;
+                                font-size: 12px;
+                                color: #666;
+                                text-align: center;
+                                line-height: 1.5;
+                                padding: 10px;
+                                background-color: var(--light-color);
+                                border-radius: 8px;
+                                border: 1px dashed #ccc;
+                            }
+                            
+                            .watermark {
+                                position: absolute;
+                                opacity: 0.1;
+                                font-size: 100px;
+                                font-weight: bold;
+                                color: var(--primary-color);
+                                transform: rotate(-30deg);
+                                z-index: 0;
+                                top: 30%;
+                                left: 50%;
+                                transform: translateX(-50%) rotate(-30deg);
+                                pointer-events: none;
+                            }
+                            
+                            .stamp {
+                                position: absolute;
+                                bottom: 20px;
+                                left: 20px;
+                                width: 80px;
+                                height: 80px;
+                                border: 3px solid var(--primary-color);
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: var(--primary-color);
+                                font-weight: bold;
+                                transform: rotate(-15deg);
+                                opacity: 0.8;
+                                font-size: 12px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="receipt-container">
+                            <div class="watermark">أورنمو</div>
+                            <div class="stamp">ختم</div>
+                            
+                            <h1>كمبيالة إلكترونية</h1>
+                            
+                            <div class="info-row">
+                                <span>حرر بتاريخ:</span>
+                                <span class="highlight">${new Date().toLocaleDateString('ar-EG')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>أتعهد بموجب هذه الكمبيالة أن أدفع لأمر:</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>اسم مستلم المبلغ:</span>
+                                <span class="highlight">${formData.get('recipientName')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>رقم هوية مستلم المبلغ:</span>
+                                <span class="highlight">${formData.get('recipientID')}</span>
+                            </div>
+                            
+                            <div class="amount-row">
+                                <div class="info-row">
+                                    <span>المبلغ:</span>
+                                    <span class="highlight">${formattedAmount} ${currency}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>المبلغ كتابةً:</span>
+                                    <span class="highlight">${amountInWords} فقط لا غير</span>
+                                </div>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>اسم مانح المبلغ:</span>
+                                <span class="highlight">${formData.get('donorName')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>رقم هوية مانح المبلغ:</span>
+                                <span class="highlight">${formData.get('donorID')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>تاريخ الاستحقاق:</span>
+                                <span class="highlight">${formData.get('dueDate')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>المحافظة:</span>
+                                <span class="highlight">${formData.get('province')}</span>
+                            </div>
+                            
+                            <div class="info-row">
+                                <span>وتعهد بالدفع في التاريخ المحدد.</span>
+                            </div>
+                            
+                            <div class="signature-section">
+                                <div class="signature-box">
+                                    <div>التوقيع</div>
+                                    <div class="signature-line"></div>
+                                </div>
+                                <div class="signature-box">
+                                    <div>البصمة</div>
+                                    <div class="signature-line"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="note">
+                                ملاحظة: هذه الكمبيالة صادرة إلكترونياً عبر منصة أورنمو القانونية.<br>
+                                يمكنك تصديقها لدى كاتب العدل المختص.<br>
+                                رقم المرجع: ${Math.floor(100000 + Math.random() * 900000)}<br>
+                                © جميع الحقوق محفوظة - منصة أورنمو ${new Date().getFullYear()}
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `);
+            newWindow.document.close();
+        });
+    </script>
+</body>
+</html>
